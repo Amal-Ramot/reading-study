@@ -20,8 +20,6 @@
   --c-gray: #8a8fa3;
   --radius: 22px;
   --shadow: 0 6px 0 rgba(43, 45, 66, 0.08), 0 12px 28px rgba(43, 45, 66, 0.08);
-  --font-ui: system-ui, sans-serif;
-  --font-read: "Noto Sans Hebrew", "Arial Hebrew", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -45,7 +43,7 @@ body {
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
 
-.read { font-family: var(--font-read), var(--font-ui), sans-serif; }
+.read { font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif), var(--font-ui), sans-serif; }
 
 /* ---------- Header ---------- */
 .header {
@@ -62,7 +60,7 @@ button { font-family: inherit; }
 .brand-logo {
   width: 44px; height: 44px; border-radius: 14px;
   background: var(--c-coral); color: white;
-  display: grid; place-items: center; font-family: var(--font-read); font-size: 28px;
+  display: grid; place-items: center; font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-size: 28px;
   box-shadow: 0 4px 0 #d9502f;
 }
 .nav { display: flex; gap: 6px; flex: 1; overflow-x: auto; scrollbar-width: none; }
@@ -141,7 +139,7 @@ button { font-family: inherit; }
 .hero-art { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .hero-art span {
   aspect-ratio: 1; border-radius: 22px; display: grid; place-items: center;
-  font-family: var(--font-read); font-size: clamp(36px, 6vw, 58px); font-weight: 700;
+  font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-size: clamp(36px, 6vw, 58px); font-weight: 700;
   background: white; box-shadow: var(--shadow);
   animation: floaty 3s ease-in-out infinite;
 }
@@ -166,7 +164,7 @@ button { font-family: inherit; }
 .letter-card {
   position: relative; aspect-ratio: 1; border-radius: 22px; background: white; border: 2px solid var(--line);
   box-shadow: var(--shadow); cursor: pointer; display: grid; place-items: center;
-  font-family: var(--font-read); font-size: 64px; font-weight: 700; color: var(--ink);
+  font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-size: 64px; font-weight: 700; color: var(--ink);
   transition: transform .12s;
 }
 .letter-card:hover { transform: scale(1.05); }
@@ -177,7 +175,7 @@ button { font-family: inherit; }
 .letter-detail { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center; margin-bottom: 26px; }
 .letter-big {
   width: 190px; height: 190px; border-radius: 36px; background: var(--c-coral); color: white;
-  display: grid; place-items: center; font-family: var(--font-read); font-size: 130px; font-weight: 700;
+  display: grid; place-items: center; font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-size: 130px; font-weight: 700;
   box-shadow: 0 8px 0 #d9502f;
 }
 .letter-info h2 { font-size: 34px; margin: 0; }
@@ -197,11 +195,11 @@ button { font-family: inherit; }
   text-align: center; box-shadow: var(--shadow); transition: transform .12s;
 }
 .vowel-card:hover { transform: translateY(-3px); }
-.vowel-card .syl { font-family: var(--font-read); font-size: 76px; font-weight: 700; line-height: 1.25; }
+.vowel-card .syl { font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-size: 76px; font-weight: 700; line-height: 1.25; }
 .vowel-card .vname { font-weight: 700; font-size: 18px; }
 .syllable-train { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; padding: 10px 0; }
 .syllable-train button {
-  font-family: var(--font-read); font-size: 54px; font-weight: 700; min-width: 96px;
+  font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-size: 54px; font-weight: 700; min-width: 96px;
   padding: 6px 14px; border-radius: 18px; border: 3px solid var(--line); background: white; cursor: pointer;
 }
 .syllable-train button.lit { background: var(--c-yellow-soft); border-color: var(--c-yellow); }
@@ -211,20 +209,20 @@ button { font-family: inherit; }
 .word-emoji { font-size: 110px; line-height: 1; }
 .syllables { display: flex; gap: 6px; justify-content: center; margin: 22px 0; flex-wrap: wrap; }
 .syllable {
-  font-family: var(--font-read); font-size: clamp(56px, 10vw, 92px); font-weight: 700;
+  font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-size: clamp(56px, 10vw, 92px); font-weight: 700;
   padding: 2px 18px; border-radius: 20px; transition: transform .2s, background .2s;
 }
 .syllable:nth-child(odd) { color: var(--c-coral); background: var(--c-coral-soft); }
 .syllable:nth-child(even) { color: var(--c-purple); background: var(--c-purple-soft); }
 .syllable.lit { transform: scale(1.15); box-shadow: 0 0 0 4px var(--c-yellow); }
-.whole-word { font-family: var(--font-read); font-size: clamp(48px, 9vw, 80px); font-weight: 700; margin: 10px 0; }
+.whole-word { font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-size: clamp(48px, 9vw, 80px); font-weight: 700; margin: 10px 0; }
 .dots { display: flex; gap: 6px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
 .dots span { width: 12px; height: 12px; border-radius: 50%; background: var(--line); }
 .dots span.on { background: var(--c-coral); }
 .dots span.done { background: var(--c-green); }
 
 /* ---------- Stories ---------- */
-.story-text { font-family: var(--font-read); font-weight: 600; line-height: 2.1; }
+.story-text { font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-weight: 600; line-height: 2.1; }
 .story-sentence { margin: 0 0 8px; }
 .story-word {
   display: inline-block; padding: 0 8px; border-radius: 12px; cursor: pointer; transition: background .15s;
@@ -236,7 +234,7 @@ button { font-family: inherit; }
 /* ---------- Game / Check ---------- */
 .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-top: 22px; }
 .option {
-  font-family: var(--font-read); font-size: 46px; font-weight: 700; padding: 18px; border-radius: 22px;
+  font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-size: 46px; font-weight: 700; padding: 18px; border-radius: 22px;
   background: white; border: 3px solid var(--line); cursor: pointer; box-shadow: var(--shadow);
   transition: transform .1s;
 }
@@ -248,7 +246,7 @@ button { font-family: inherit; }
 .progress-bar > div { height: 100%; background: linear-gradient(90deg, var(--c-yellow), var(--c-coral)); transition: width .3s; }
 
 .check-target {
-  font-family: var(--font-read); font-weight: 700; font-size: clamp(110px, 22vw, 200px); line-height: 1.1;
+  font-family: var(--font-read, "Arial Hebrew", Arial, sans-serif); font-weight: 700; font-size: clamp(110px, 22vw, 200px); line-height: 1.1;
   margin: 10px auto 16px; width: fit-content; min-width: 220px; padding: 10px 40px; border-radius: 40px;
   background: white; border: 4px dashed var(--line);
 }

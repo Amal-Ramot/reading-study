@@ -23,7 +23,15 @@
 
 > זיהוי דיבור עובד הכי טוב ב-Chrome או Edge, ודורש אישור גישה למיקרופון (ב-localhost או באתר https).
 
-## הרצה
+## האתר ב-GitHub Pages
+כתובת: **https://amal-ramot.github.io/reading-study/**
+
+הפרסום אוטומטי: בכל push ל-`main` (או לענף הפיתוח) ה-workflow `.github/workflows/deploy-pages.yml` בונה את האתר כאתר סטטי ומעלה אותו.
+
+הגדרה חד-פעמית: במאגר ב-GitHub נכנסים ל-**Settings → Pages**, ותחת **Build and deployment → Source** בוחרים **GitHub Actions**.
+אחרי זה מריצים מחדש את ה-workflow (Actions → Deploy to GitHub Pages → Run workflow).
+
+## הרצה מקומית
 ```bash
 npm install
 npm run dev
