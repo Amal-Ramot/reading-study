@@ -1,5 +1,29 @@
 "use client";
 
+import audioManifest from "./audioManifest.json";
+
+// קבצי קול מוקלטים מראש (קול Google Translate) – מנוגנים במקום הקול של הדפדפן כשקיימים
+const AUDIO = audioManifest as Record<string, string>;
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+let currentAudio: HTMLAudioElement | null = null;
+
+export function hasRecording(text: string): boolean {
+  return text.normalize("NFC") in AUDIO;
+}
+
+function playRecording(text: string): Promise<boolean> {
+  const file = AUDIO[text.normalize("NFC")];
+  if (!file || typeof Audio === "undefined") return Promise.resolve(false);
+  return new Promise((resolve) => {
+    currentAudio?.pause();
+    const a = new Audio(`${BASE}/audio/${file}`);
+    currentAudio = a;
+    a.onended = () => resolve(true);
+    a.onerror = () => resolve(false);
+    a.play().catch(() => resolve(false));
+  });
+}
+
 // ---------- הקראה (Text-to-Speech) ----------
 
 let cachedVoice: SpeechSynthesisVoice | null | undefined;
@@ -21,10 +45,16 @@ export function hasHebrewVoice(): boolean {
 }
 
 export function stopSpeaking() {
+  currentAudio?.pause();
   if (canSpeak()) window.speechSynthesis.cancel();
 }
 
-export function speak(text: string, rate = 0.8): Promise<void> {
+export async function speak(text: string, rate = 0.8): Promise<void> {
+  if (await playRecording(text)) return;
+  return speakSynth(text, rate);
+}
+
+function speakSynth(text: string, rate: number): Promise<void> {
   return new Promise((resolve) => {
     if (!canSpeak()) return resolve();
     const u = new SpeechSynthesisUtterance(text);

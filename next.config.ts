@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true, // /letters/ -> letters/index.html
   basePath,
   images: { unoptimized: true },
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
 };
 
 export default nextConfig;

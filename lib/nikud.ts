@@ -192,3 +192,15 @@ export function levelWords(levelId: number): NikudWord[] {
 export function reviewWords(levelId: number): NikudWord[] {
   return NIKUD_LEVELS.filter((l) => l.id <= levelId).flatMap((l) => l.words);
 }
+
+/** כל הטקסטים שמוקראים בתרגול הניקוד – עבורם מייצרים קבצי קול מראש (scripts/generate-audio.ts) */
+export function nikudSpeechTexts(): string[] {
+  const out = new Set<string>();
+  for (const l of NIKUD_LEVELS) {
+    out.add(l.tip);
+    out.add(l.anchor.word);
+    l.words.forEach((w) => out.add(w.word));
+  }
+  for (const c of NIKUD_CONSONANTS) for (const v of VOWELS) out.add(speakableSyllable(c, v.id));
+  return [...out];
+}
