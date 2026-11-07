@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const PATH = [
   { href: "/letters", icon: "🔤", title: "אוֹתִיּוֹת", desc: "מכירים את 22 האותיות, השם והצליל של כל אחת", bg: "var(--c-coral-soft)" },
-  { href: "/vowels", icon: "🎵", title: "נִקּוּד", desc: "אות + תנועה = הברה. בּוֹנִים צלילים", bg: "var(--c-yellow-soft)" },
+  { href: "/nikud", icon: "🎵", title: "מַסְלוּל נִקּוּד", desc: "צליל אחד בכל פעם: מכירים, שומעים, קוראים ומתאימים", bg: "var(--c-yellow-soft)" },
   { href: "/words", icon: "🧩", title: "מִלִּים", desc: "קוראים מילה הברה אחר הברה", bg: "var(--c-purple-soft)" },
   { href: "/stories", icon: "📖", title: "סִפּוּרִים", desc: "סיפורים קצרים עם ניקוד מלא", bg: "var(--c-teal-soft)" },
   { href: "/game", icon: "🎮", title: "מִשְׂחָק", desc: "מתאימים תמונה למילה ומוצאים אותיות", bg: "var(--c-green-soft)" },

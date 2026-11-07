@@ -8,16 +8,21 @@ type Progress = {
   stars: number;
   letters: Record<string, LetterStat>;
   words: Record<string, LetterStat>;
+  /** ציון הכי טוב (באחוזים) לכל שלב ניקוד ולכל תרגיל בו: nikud["1"].listen */
+  nikud: Record<string, Partial<Record<NikudStep, number>>>;
 };
+
+export type NikudStep = "listen" | "match" | "read";
 
 type Ctx = Progress & {
   addStars: (n?: number) => void;
   recordLetter: (char: string, correct: boolean) => void;
   recordWord: (word: string, correct: boolean) => void;
+  recordNikud: (level: number, step: NikudStep, pct: number) => void;
   reset: () => void;
 };
 
-const EMPTY: Progress = { stars: 0, letters: {}, words: {} };
+const EMPTY: Progress = { stars: 0, letters: {}, words: {}, nikud: {} };
 const KEY = "reading-study-progress-v1";
 
 const ProgressContext = createContext<Ctx | null>(null);
@@ -62,10 +67,18 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     (word: string, correct: boolean) => setState((s) => ({ ...s, words: bump(s.words, word, correct) })),
     [],
   );
+  const recordNikud = useCallback(
+    (level: number, step: NikudStep, pct: number) =>
+      setState((s) => {
+        const prev = s.nikud[level] ?? {};
+        return { ...s, nikud: { ...s.nikud, [level]: { ...prev, [step]: Math.max(prev[step] ?? 0, pct) } } };
+      }),
+    [],
+  );
   const reset = useCallback(() => setState(EMPTY), []);
 
   return (
-    <ProgressContext.Provider value={{ ...state, addStars, recordLetter, recordWord, reset }}>
+    <ProgressContext.Provider value={{ ...state, addStars, recordLetter, recordWord, recordNikud, reset }}>
       {children}
     </ProgressContext.Provider>
   );

@@ -6,7 +6,7 @@ import { useProgress } from "./ProgressProvider";
 
 export const NAV = [
   { href: "/letters", label: "אוֹתִיּוֹת", icon: "🔤" },
-  { href: "/vowels", label: "נִקּוּד", icon: "🎵" },
+  { href: "/nikud", label: "מַסְלוּל נִקּוּד", icon: "🎵" },
   { href: "/words", label: "מִלִּים", icon: "🧩" },
   { href: "/stories", label: "סִפּוּרִים", icon: "📖" },
   { href: "/game", label: "מִשְׂחָק", icon: "🎮" },
