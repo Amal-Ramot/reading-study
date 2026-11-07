@@ -16,6 +16,7 @@ import {
 import { canRecognize, heardMatches, listenOnce, speak } from "@/lib/speech";
 import { NikudStep, useProgress } from "@/components/ProgressProvider";
 import { Celebration } from "@/components/Celebration";
+import { PageHeader } from "@/components/Characters";
 
 const PASS = 80;
 const STEPS: { id: "intro" | NikudStep; label: string; icon: string }[] = [
@@ -45,11 +46,12 @@ export default function NikudPage() {
   if (!level) {
     return (
       <>
-        <h1 className="page-title read">מַסְלוּל הַנִּקּוּד 🎵</h1>
-        <p className="page-sub">
+        <PageHeader who="octopus" title="מַסְלוּל הַנִּקּוּד 🎵">
+          
           לומדים צליל אחד בכל פעם. בכל שלב: מכירים את הסימן, שומעים ומבחינים, קוראים מילים ומתאימים לתמונה, וקוראים בקול.
           שלב עובר כשכל התרגילים מגיעים ל-{PASS}%.
-        </p>
+        
+        </PageHeader>
         <div className="level-map">
           {NIKUD_LEVELS.map((l) => {
             const sc = nikud[l.id];

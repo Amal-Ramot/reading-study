@@ -5,6 +5,7 @@ import { WORDS } from "@/lib/data";
 import { speak } from "@/lib/speech";
 import { useProgress } from "@/components/ProgressProvider";
 import { Celebration } from "@/components/Celebration";
+import { PageHeader } from "@/components/Characters";
 
 export default function WordsPage() {
   const [i, setI] = useState(0);
@@ -44,8 +45,9 @@ export default function WordsPage() {
   return (
     <>
       <Celebration trigger={party} />
-      <h1 className="page-title read">קוֹרְאִים מִלִּים 🧩</h1>
-      <p className="page-sub">כל צבע הוא הברה. קוראים הברה-הברה, ואז את כל המילה ביחד.</p>
+      <PageHeader who="puffer" title="קוֹרְאִים מִלִּים 🧩">
+        כל צבע הוא הברה. קוראים הברה-הברה, ואז את כל המילה ביחד.
+      </PageHeader>
 
       <div className="card word-stage">
         <div className="word-emoji">{w.emoji}</div>

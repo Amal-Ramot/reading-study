@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { LETTERS, WORDS } from "@/lib/data";
 import { masteryLevel, useProgress } from "@/components/ProgressProvider";
+import { PageHeader } from "@/components/Characters";
 
 const LABEL = ["לא נבדק", "צריך תרגול", "בדרך", "שולט!"];
 
@@ -14,8 +15,9 @@ export default function ReportPage() {
 
   return (
     <>
-      <h1 className="page-title read">דּוּחַ הִתְקַדְּמוּת 📊</h1>
-      <p className="page-sub">התוצאות מבדיקת הקריאה בקול. אות נחשבת &quot;שולט&quot; אחרי 2 קריאות נכונות ברצף.</p>
+      <PageHeader who="turtle" title="דּוּחַ הִתְקַדְּמוּת 📊">
+        התוצאות מבדיקת הקריאה בקול. אות נחשבת &quot;שולט&quot; אחרי 2 קריאות נכונות ברצף.
+      </PageHeader>
 
       <div className="tiles" style={{ marginBottom: 24 }}>
         <div className="tile" style={{ background: "var(--c-yellow-soft)" }}><div className="tile-icon">⭐</div><h3>{stars} כוכבים</h3><p>שנאספו בכל הפעילויות</p></div>

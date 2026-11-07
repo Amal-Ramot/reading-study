@@ -5,6 +5,7 @@ import { LETTERS, WORDS, pickRandom, shuffle } from "@/lib/data";
 import { speak } from "@/lib/speech";
 import { useProgress } from "@/components/ProgressProvider";
 import { Celebration } from "@/components/Celebration";
+import { PageHeader } from "@/components/Characters";
 
 type Mode = "picture" | "letter";
 type Round = { prompt: string; promptSpeak: string; answer: string; options: string[] };
@@ -70,8 +71,9 @@ export default function GamePage() {
   return (
     <>
       <Celebration trigger={party} />
-      <h1 className="page-title read">מִשְׂחַק קְרִיאָה 🎮</h1>
-      <p className="page-sub">בוחרים משחק ועונים. תשובה נכונה בניסיון הראשון = כוכב ⭐</p>
+      <PageHeader who="puffer" title="מִשְׂחַק קְרִיאָה 🎮">
+        בוחרים משחק ועונים. תשובה נכונה בניסיון הראשון = כוכב ⭐
+      </PageHeader>
 
       <div className="tabs">
         <button className={"chip" + (mode === "picture" ? " active" : "")} onClick={() => restart("picture")}>🖼️ איזו מילה מתאימה לתמונה?</button>

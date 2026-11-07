@@ -5,6 +5,7 @@ import { STORIES } from "@/lib/data";
 import { speak, stopSpeaking } from "@/lib/speech";
 import { useProgress } from "@/components/ProgressProvider";
 import { Celebration } from "@/components/Celebration";
+import { PageHeader } from "@/components/Characters";
 
 const cleanWord = (w: string) => w.replace(/[.,!?:]/g, "");
 
@@ -43,8 +44,9 @@ export default function StoriesPage() {
   return (
     <>
       <Celebration trigger={party} />
-      <h1 className="page-title read">סִפּוּרִים קְטַנִּים 📖</h1>
-      <p className="page-sub">לוחצים על מילה כדי לשמוע אותה, או על &quot;הקרא לי&quot; כדי לעקוב אחרי הקריאה.</p>
+      <PageHeader who="turtle" title="סִפּוּרִים קְטַנִּים 📖">
+        לוחצים על מילה כדי לשמוע אותה, או על &quot;הקרא לי&quot; כדי לעקוב אחרי הקריאה.
+      </PageHeader>
 
       <div className="tabs">
         {STORIES.map((s) => (

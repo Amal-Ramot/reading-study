@@ -20,8 +20,8 @@ export function Header() {
     <header className="header">
       <div className="header-inner">
         <Link href="/" className="brand" aria-label="דף הבית">
-          <span className="brand-logo">אָ</span>
-          <span className="brand-text">קוֹרְאִים בְּכֵיף</span>
+          <span className="brand-logo">🏝️</span>
+          <span className="brand-text">אִי הַקּוֹרְאִים</span>
         </Link>
         <nav className="nav" aria-label="ניווט ראשי">
           {NAV.map((n) => (

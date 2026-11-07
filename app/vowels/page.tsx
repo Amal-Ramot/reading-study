@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { PRACTICE_CONSONANTS, VOWELS, shuffle } from "@/lib/data";
 import { speak } from "@/lib/speech";
+import { PageHeader } from "@/components/Characters";
 
 function makeTrain(vowelIds: string[]) {
   const vs = VOWELS.filter((v) => vowelIds.includes(v.id));
@@ -39,8 +40,9 @@ export default function VowelsPage() {
 
   return (
     <>
-      <h1 className="page-title read">הַנִּקּוּד 🎵</h1>
-      <p className="page-sub">אות + סימן ניקוד = הברה. בוחרים אות ולוחצים על הברה כדי לשמוע אותה.</p>
+      <PageHeader who="octopus" title="הַנִּקּוּד 🎵">
+        אות + סימן ניקוד = הברה. בוחרים אות ולוחצים על הברה כדי לשמוע אותה.
+      </PageHeader>
 
       <div className="card">
         <div className="row" style={{ marginBottom: 18 }}>

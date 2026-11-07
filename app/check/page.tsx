@@ -6,6 +6,7 @@ import { LETTERS, WORDS, shuffle } from "@/lib/data";
 import { canRecognize, heardMatches, listenOnce, normalizeHebrew, speak } from "@/lib/speech";
 import { masteryLevel, useProgress } from "@/components/ProgressProvider";
 import { Celebration } from "@/components/Celebration";
+import { PageHeader } from "@/components/Characters";
 
 type Mode = "letters" | "words";
 type Item = { key: string; display: string; targets: string[]; answer: string; hint: string };
@@ -157,10 +158,11 @@ export default function CheckPage() {
   return (
     <>
       <Celebration trigger={party} />
-      <h1 className="page-title read">בְּדִיקַת קְרִיאָה 🎤</h1>
-      <p className="page-sub">
+      <PageHeader who="octopus" title="בְּדִיקַת קְרִיאָה 🎤">
+        
         הילד/ה קורא/ת בקול – והמחשב בודק אם הקריאה נכונה. כל תוצאה נשמרת ב<Link href="/report" style={{ textDecoration: "underline" }}>דוח ההתקדמות</Link>.
-      </p>
+      
+      </PageHeader>
 
       {!supported && (
         <div className="notice">

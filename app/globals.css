@@ -329,3 +329,94 @@ button { font-family: inherit; }
 }
 .mark-box .mark { font-size: 110px; line-height: 1.2; }
 .tip { font-size: 26px; font-weight: 600; margin: 0 0 14px; line-height: 1.7; }
+
+/* =========================================================
+   ערכת עיצוב "אי הקוראים" – שמיים, ים, חול ודמויות
+   ========================================================= */
+:root {
+  --sky: #2aa7e0;
+  --sky-deep: #1784bd;
+  --sand: #ffe7b0;
+  --line: #f3dfb4;
+}
+body {
+  background: linear-gradient(180deg, #9fdcff 0, #d6f1ff 220px, #fff3d4 520px, #fff6e2 100%);
+  background-attachment: fixed;
+}
+.main, .footer, .header { position: relative; z-index: 1; }
+
+/* רקע */
+.backdrop { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.backdrop .sun { position: absolute; top: 84px; inset-inline-end: 2%; width: 110px; animation: spin 40s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.backdrop .cloud { position: absolute; width: 150px; opacity: .9; animation: drift 60s linear infinite; }
+.backdrop .c1 { top: 90px; left: -160px; }
+.backdrop .c2 { top: 170px; left: -160px; width: 110px; animation-duration: 85s; animation-delay: -30s; }
+@keyframes drift { to { transform: translateX(calc(100vw + 320px)); } }
+.backdrop .waves { position: absolute; bottom: 0; left: 0; width: 200%; height: 90px; animation: sway 14s ease-in-out infinite alternate; }
+@keyframes sway { to { transform: translateX(-25%); } }
+
+/* כותרת עליונה – שמיים עם גל */
+.header { background: var(--sky); border-bottom: none; backdrop-filter: none; color: white; }
+.header::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -17px; height: 18px;
+  background: radial-gradient(circle at 20px -6px, var(--sky) 20px, transparent 21px) repeat-x;
+  background-size: 40px 18px;
+}
+.brand-logo { background: #fff3d4; box-shadow: 0 4px 0 #e8c77a; font-size: 26px; }
+.nav-link { color: white; }
+.nav-link:hover { background: rgba(255, 255, 255, .2); }
+.nav-link.active { background: white; color: var(--sky-deep); }
+.stars { color: var(--ink); }
+
+/* כרטיסים – לבן עם מסגרת חול */
+.card { border-color: var(--line); border-width: 3px; border-radius: 28px; }
+
+/* דמות מדריכה ובועת דיבור */
+.page-header { display: flex; align-items: flex-end; gap: 14px; margin: 6px 0 26px; }
+.guide-char { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.guide-name {
+  background: white; border-radius: 999px; padding: 1px 12px; font-size: 14px; font-weight: 700;
+  border: 2px solid var(--line); margin-top: -6px; white-space: nowrap;
+}
+.guide-text { flex: 1; min-width: 0; }
+.guide-text .page-title { margin-bottom: 10px; }
+.bubble {
+  position: relative; background: white; border: 3px solid var(--ink); border-radius: 22px;
+  padding: 12px 18px; font-size: 19px; box-shadow: 0 5px 0 rgba(43, 45, 66, .12); width: fit-content; max-width: 100%;
+}
+.guide-text .bubble::before {
+  content: ""; position: absolute; bottom: 14px; inset-inline-start: -16px;
+  border: 9px solid transparent; border-inline-end: 14px solid var(--ink);
+}
+.bob { animation: bob 2.6s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-6px) rotate(-2deg); } }
+@media (max-width: 600px) {
+  .page-header { flex-direction: column; align-items: flex-start; }
+  .guide-char svg { width: 90px; height: 90px; }
+  .guide-text .bubble::before { display: none; }
+}
+
+/* דמות שקופצת בהצלחה */
+.cheer-hero {
+  position: fixed; bottom: -10px; inset-inline-start: 24px; display: flex; flex-direction: column; align-items: center;
+  animation: popup 1.6s cubic-bezier(.3, 1.6, .5, 1) forwards;
+}
+.cheer-hero .bubble { font-size: 24px; font-weight: 800; padding: 6px 16px; }
+@keyframes popup {
+  0% { transform: translateY(110%); }
+  20%, 80% { transform: translateY(0); }
+  100% { transform: translateY(110%); }
+}
+
+/* דף הבית – סצנת האי */
+.hero { background: linear-gradient(180deg, #d9f3ff, #fff3d4); }
+.island { position: relative; aspect-ratio: 4 / 3; width: 100%; }
+.island svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+.island .ch { position: absolute; }
+.tile-char { height: 84px; display: flex; align-items: flex-end; }
+.tile:hover .tile-char svg { animation: bob .8s ease-in-out infinite; }
+.cast { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px; }
+.cast-card { background: white; border: 3px solid var(--line); border-radius: 24px; padding: 14px; text-align: center; box-shadow: var(--shadow); }
+.cast-card h3 { margin: 4px 0 0; font-size: 21px; }
+.cast-card p { margin: 2px 0 0; color: var(--ink-soft); font-size: 16px; }

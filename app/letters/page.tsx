@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LETTERS } from "@/lib/data";
 import { SpeakButton } from "@/components/SpeakButton";
 import { masteryLevel, useProgress } from "@/components/ProgressProvider";
+import { PageHeader } from "@/components/Characters";
 
 const DOT = ["transparent", "var(--c-red)", "var(--c-yellow)", "var(--c-green)"];
 
@@ -15,8 +16,9 @@ export default function LettersPage() {
 
   return (
     <>
-      <h1 className="page-title read">הָאוֹתִיּוֹת שֶׁלִּי 🔤</h1>
-      <p className="page-sub">לוחצים על אות כדי לראות אותה בגדול, לשמוע את השם שלה ומילה שמתחילה בה.</p>
+      <PageHeader who="crab" title="הָאוֹתִיּוֹת שֶׁלִּי 🔤">
+        לוחצים על אות כדי לראות אותה בגדול, לשמוע את השם שלה ומילה שמתחילה בה.
+      </PageHeader>
 
       <div className="card letter-detail">
         <div className="letter-big">{l.char}</div>
