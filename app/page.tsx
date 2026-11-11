@@ -11,33 +11,94 @@ const PATH: { href: string; who: CharacterId; title: string; desc: string; bg: s
 ];
 
 function IslandScene() {
+  const frond = (rot: number, len: number, droop: number, key: string) => (
+    <g key={key} transform={`translate(252 92) rotate(${rot})`}>
+      <path d={`M0 0 Q${len * 0.5} ${-18 - droop} ${len} ${droop} Q${len * 0.5} ${-2 - droop * 0.4} 0 6Z`} fill="url(#is-leaf)" stroke="#0d5a2c" strokeWidth=".8" />
+      <path d={`M0 2 Q${len * 0.5} ${-11 - droop * 0.7} ${len} ${droop}`} fill="none" stroke="#b9f0a8" strokeOpacity=".55" strokeWidth="1.2" />
+      {Array.from({ length: 7 }, (_, i) => {
+        const t = (i + 1) / 8, x = len * t, y = (-11 - droop * 0.7) * 2 * t * (1 - t) + droop * t * t + 2 * (1 - t);
+        return <path key={i} d={`M${x} ${y} l${6} ${7 + i}`} stroke="#0d5a2c" strokeOpacity=".35" strokeWidth="1" />;
+      })}
+    </g>
+  );
   return (
-    <div className="island">
-      <svg className="scene" viewBox="0 0 400 300" aria-hidden>
-        <ellipse cx="200" cy="262" rx="220" ry="60" fill="#3bb4e8" />
-        <path d="M0 250 Q50 236 100 250 T200 250 T300 250 T400 250" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" opacity=".7" />
-        <ellipse cx="200" cy="232" rx="150" ry="42" fill="#ffd98a" stroke="#e8b85a" strokeWidth="3" />
-        <ellipse cx="170" cy="222" rx="60" ry="10" fill="#ffe7b0" />
-        {/* דקל */}
-        <path d="M232 222 Q226 160 250 96" fill="none" stroke="#a0662f" strokeWidth="13" strokeLinecap="round" />
-        <path d="M232 222 Q226 160 250 96" fill="none" stroke="#c9884a" strokeWidth="5" strokeDasharray="6 9" strokeLinecap="round" />
-        <g fill="#2fbf71" stroke="#1d8a4f" strokeWidth="3" strokeLinejoin="round">
-          <path d="M250 96 Q210 70 172 92 Q212 84 250 100 Z" />
-          <path d="M250 96 Q290 66 330 90 Q290 82 250 100 Z" />
-          <path d="M250 96 Q232 50 196 46 Q232 66 248 100 Z" />
-          <path d="M250 96 Q276 52 312 52 Q276 70 252 100 Z" />
-          <path d="M250 96 Q262 120 250 150 Q246 122 248 100 Z" />
+    <div className="island" aria-hidden>
+      <svg viewBox="0 0 400 300" className="scene">
+        <defs>
+          <linearGradient id="is-sea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#7fe3ee" /><stop offset=".35" stopColor="#25b3d6" /><stop offset="1" stopColor="#0b5f9e" />
+          </linearGradient>
+          <radialGradient id="is-shallow" cx=".5" cy=".5" r=".5">
+            <stop offset=".55" stopColor="#b8f5ee" stopOpacity=".95" /><stop offset=".8" stopColor="#6fe0e0" stopOpacity=".6" /><stop offset="1" stopColor="#25b3d6" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="is-sand" cx=".42" cy=".3" r=".75">
+            <stop offset="0" stopColor="#fff3cf" /><stop offset=".6" stopColor="#f3d290" /><stop offset="1" stopColor="#c99a55" />
+          </radialGradient>
+          <linearGradient id="is-trunk" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#5c3716" /><stop offset=".45" stopColor="#b98250" /><stop offset="1" stopColor="#6b411c" />
+          </linearGradient>
+          <linearGradient id="is-leaf" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#1f8f45" /><stop offset=".5" stopColor="#3fc46a" /><stop offset="1" stopColor="#0f6a33" />
+          </linearGradient>
+          <radialGradient id="is-coco" cx=".35" cy=".3" r=".8">
+            <stop offset="0" stopColor="#b98250" /><stop offset="1" stopColor="#4a2a10" />
+          </radialGradient>
+          <filter id="is-blur"><feGaussianBlur stdDeviation="4" /></filter>
+          <filter id="is-grain" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="4" />
+            <feColorMatrix values="0 0 0 0 .45  0 0 0 0 .3  0 0 0 0 .1  0 0 0 .5 -.12" />
+            <feComposite in2="SourceGraphic" operator="in" />
+          </filter>
+          <clipPath id="is-clip"><rect x="0" y="0" width="400" height="300" rx="28" /></clipPath>
+        </defs>
+        <g clipPath="url(#is-clip)">
+          {/* ים עם עומק ונצנוצים */}
+          <path d="M0 196 Q100 186 200 194 T400 190 V300 H0Z" fill="url(#is-sea)" />
+          <g stroke="#fff" strokeLinecap="round" opacity=".55">
+            <path d="M24 262 q14 -5 28 0" strokeWidth="2" fill="none" /><path d="M318 268 q16 -5 32 0" strokeWidth="2" fill="none" />
+            <path d="M70 284 q10 -4 20 0" strokeWidth="1.5" fill="none" /><path d="M250 284 q12 -4 24 0" strokeWidth="1.5" fill="none" />
+            <path d="M350 214 q10 -3 20 0" strokeWidth="1.5" fill="none" /><path d="M20 216 q10 -3 20 0" strokeWidth="1.5" fill="none" />
+          </g>
+          {/* מים רדודים וקצף סביב האי */}
+          <ellipse cx="200" cy="232" rx="188" ry="52" fill="url(#is-shallow)" />
+          <ellipse cx="200" cy="236" rx="158" ry="36" fill="none" stroke="#fff" strokeOpacity=".8" strokeWidth="3" strokeDasharray="40 9 22 7 60 12" />
+          {/* חול */}
+          <ellipse cx="200" cy="246" rx="150" ry="14" fill="#7a5a2a" opacity=".35" filter="url(#is-blur)" />
+          <ellipse cx="200" cy="230" rx="150" ry="36" fill="url(#is-sand)" />
+          <ellipse cx="200" cy="230" rx="150" ry="36" fill="#000" filter="url(#is-grain)" opacity=".5" />
+          <ellipse cx="170" cy="218" rx="70" ry="10" fill="#fff" opacity=".28" filter="url(#is-blur)" />
+          {/* צל הדקל */}
+          <ellipse cx="286" cy="236" rx="46" ry="7" fill="#5a3b12" opacity=".3" filter="url(#is-blur)" />
+          {/* גזע */}
+          <path d="M224 226 Q224 160 246 94 L258 97 Q240 162 242 226Z" fill="url(#is-trunk)" />
+          {Array.from({ length: 11 }, (_, i) => {
+            const t = i / 11, y = 218 - t * 118, x = 224 + t * t * 22 + t * 2;
+            return <path key={i} d={`M${x} ${y} q8 4 ${17 - t * 5} 0`} fill="none" stroke="#3d2209" strokeOpacity=".55" strokeWidth="1.4" />;
+          })}
+          {/* כפות דקל */}
+          {frond(200, 92, 26, "a")}
+          {frond(-20, 96, 26, "b")}
+          {frond(232, 78, 10, "c")}
+          {frond(-52, 80, 10, "d")}
+          {frond(170, 70, 34, "e")}
+          {frond(12, 72, 34, "f")}
+          {frond(-88, 56, 4, "g")}
+          <circle cx="246" cy="102" r="7.5" fill="url(#is-coco)" /><circle cx="258" cy="104" r="7.5" fill="url(#is-coco)" /><circle cx="252" cy="110" r="7" fill="url(#is-coco)" />
+          {/* צדף וכוכב ים */}
+          <g transform="translate(124 244)">
+            <path d="M0 0 C-10 -14 10 -18 14 -6 C16 2 6 6 0 0Z" fill="#ffe3d3" stroke="#c98f7a" strokeWidth=".8" />
+            <path d="M1 -1 L3 -13 M2 -1 L9 -11 M2 0 L13 -5" stroke="#c98f7a" strokeWidth=".8" />
+          </g>
+          <g transform="translate(306 242) rotate(12)">
+            <path d="M0 -10 L3 -3 L10 -3 L4.5 1.5 L6.5 9 L0 4.5 L-6.5 9 L-4.5 1.5 L-10 -3 L-3 -3Z" fill="#ff8a5c" stroke="#b9471f" strokeWidth=".8" strokeLinejoin="round" />
+            <circle cx="0" cy="0" r="1" fill="#ffd2b8" /><circle cx="0" cy="-5" r=".8" fill="#ffd2b8" /><circle cx="4" cy="-1" r=".8" fill="#ffd2b8" /><circle cx="-4" cy="-1" r=".8" fill="#ffd2b8" />
+          </g>
         </g>
-        <circle cx="244" cy="104" r="7" fill="#8a5a2b" />
-        <circle cx="256" cy="106" r="7" fill="#8a5a2b" />
-        {/* צדפים */}
-        <text x="120" y="248" fontSize="18">🐚</text>
-        <text x="300" y="244" fontSize="16">⭐</text>
       </svg>
-      <Character id="turtle" className="ch bob" size={110} style={{ left: "8%", top: "52%" }} />
-      <Character id="crab" className="ch bob" size={96} style={{ left: "62%", top: "58%", animationDelay: ".4s" }} />
-      <Character id="octopus" className="ch bob" size={100} style={{ left: "6%", top: "16%", animationDelay: ".8s" }} />
-      <Character id="puffer" className="ch bob" size={90} style={{ left: "74%", top: "8%", animationDelay: "1.2s" }} />
+      <Character id="turtle" className="ch bob" size={110} style={{ left: "8%", top: "50%" }} />
+      <Character id="crab" className="ch bob" size={96} style={{ left: "58%", top: "56%", animationDelay: ".4s" }} />
+      <Character id="octopus" className="ch bob" size={100} style={{ left: "6%", top: "10%", animationDelay: ".8s" }} />
+      <Character id="puffer" className="ch bob" size={90} style={{ left: "76%", top: "6%", animationDelay: "1.2s" }} />
     </div>
   );
 }
