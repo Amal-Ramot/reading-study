@@ -77,7 +77,10 @@ export default function NikudPage() {
             );
           })}
         </div>
-        <p className="muted" style={{ marginTop: 20 }}>
+        <p style={{ marginTop: 20 }}>
+          <Link href="/stories" className="btn btn-teal">📖 סִפּוּרִים בְּקָמָץ וּפַתָּח בִּלְבַד</Link>
+        </p>
+        <p className="muted">
           רוצים לראות את כל סימני הניקוד ביחד? <Link href="/vowels" style={{ textDecoration: "underline" }}>ללוח הניקוד</Link>
         </p>
       </>
@@ -228,7 +231,7 @@ function useQuizScore(level: NikudLevel, step: NikudStep, total: number) {
   return { firstTry, setFirstTry, done, setDone, finish, addStars };
 }
 
-function Result({ pct, onRetry, onNext }: { pct: number; onRetry: () => void; onNext: () => void }) {
+function Result({ pct, onRetry, onNext, storiesLink }: { pct: number; onRetry: () => void; onNext: () => void; storiesLink?: boolean }) {
   const pass = pct >= PASS;
   return (
     <div className="center">
@@ -240,6 +243,7 @@ function Result({ pct, onRetry, onNext }: { pct: number; onRetry: () => void; on
       <div className="row" style={{ justifyContent: "center" }}>
         <button className={"btn btn-lg" + (pass ? "" : " btn-primary")} onClick={onRetry}>🔁 עוֹד פַּעַם</button>
         {pass && <button className="btn btn-primary btn-lg" onClick={onNext}>הַלְאָה ←</button>}
+        {pass && storiesLink && <Link href="/stories" className="btn btn-teal btn-lg">📖 סִפּוּרִים בְּקָמָץ וּפַתָּח</Link>}
       </div>
     </div>
   );
@@ -292,7 +296,7 @@ function ListenQuiz({ level, onNext }: { level: NikudLevel; onNext: () => void }
   useEffect(start, [start]);
 
   const r = rounds[n];
-  if (q.done) return <Result pct={pct} onRetry={start} onNext={onNext} />;
+  if (q.done) return <Result pct={pct} onRetry={start} onNext={onNext} storiesLink={level.id === 1} />;
   if (!r) return null;
 
   const choose = (text: string, speakText: string) => {
@@ -367,7 +371,7 @@ function MatchQuiz({ level, onNext }: { level: NikudLevel; onNext: () => void })
   useEffect(start, [start]);
 
   const r = rounds[n];
-  if (q.done) return <Result pct={pct} onRetry={start} onNext={onNext} />;
+  if (q.done) return <Result pct={pct} onRetry={start} onNext={onNext} storiesLink={level.id === 1} />;
   if (!r) return null;
   const solved = picked.includes(r.word.emoji);
 
@@ -448,7 +452,7 @@ function ReadAloud({ level, onNext }: { level: NikudLevel; onNext: () => void })
   }, [start]);
 
   const w = words[n];
-  if (q.done) return <Result pct={pct} onRetry={start} onNext={onNext} />;
+  if (q.done) return <Result pct={pct} onRetry={start} onNext={onNext} storiesLink={level.id === 1} />;
   if (!w) return null;
 
   const advance = () => {

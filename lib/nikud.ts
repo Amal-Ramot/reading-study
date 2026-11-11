@@ -1,5 +1,5 @@
 // מסלול ניקוד מדורג: כל שלב מלמד צליל אחד, והמילים בכל שלב משתמשות רק בתנועות שכבר נלמדו
-import { VOWELS, baseForm } from "./data";
+import { STORIES, VOWELS, baseForm, cleanWord } from "./data";
 
 export type NikudWord = { word: string; emoji: string };
 
@@ -201,6 +201,9 @@ export function nikudSpeechTexts(): string[] {
     out.add(l.anchor.word);
     l.words.forEach((w) => out.add(w.word));
   }
+  // מילות הסיפורים שמותאמים לשלבי הניקוד
+  for (const st of STORIES.filter((x) => x.nikudLevel))
+    for (const sent of [st.title, ...st.sentences]) sent.split(" ").forEach((w) => out.add(cleanWord(w)));
   for (const c of NIKUD_CONSONANTS) for (const v of VOWELS) out.add(speakableSyllable(c, v.id));
   return [...out];
 }

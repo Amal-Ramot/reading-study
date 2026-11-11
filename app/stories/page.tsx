@@ -1,13 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { STORIES } from "@/lib/data";
+import { STORIES, cleanWord } from "@/lib/data";
 import { speak, stopSpeaking } from "@/lib/speech";
 import { useProgress } from "@/components/ProgressProvider";
 import { Celebration } from "@/components/Celebration";
 import { PageHeader } from "@/components/Characters";
 
-const cleanWord = (w: string) => w.replace(/[.,!?:]/g, "");
 
 export default function StoriesPage() {
   const [sid, setSid] = useState(STORIES[0].id);
@@ -48,13 +47,19 @@ export default function StoriesPage() {
         לוחצים על מילה כדי לשמוע אותה, או על &quot;הקרא לי&quot; כדי לעקוב אחרי הקריאה.
       </PageHeader>
 
-      <div className="tabs">
-        {STORIES.map((s) => (
-          <button key={s.id} className={"chip read" + (s.id === sid ? " active" : "")} style={{ fontSize: 20 }} onClick={() => { stop(); setSid(s.id); }}>
-            {s.emoji} {s.title}
-          </button>
-        ))}
-      </div>
+      {[
+        { label: "📗 קָמָץ וּפַתָּח בִּלְבַד", list: STORIES.filter((s) => s.nikudLevel === 1) },
+        { label: "📘 כָּל הַנִּקּוּד", list: STORIES.filter((s) => !s.nikudLevel) },
+      ].map((g) => (
+        <div key={g.label} className="tabs" style={{ alignItems: "center", marginBottom: 10 }}>
+          <b className="read" style={{ minWidth: 190 }}>{g.label}</b>
+          {g.list.map((s) => (
+            <button key={s.id} className={"chip read" + (s.id === sid ? " active" : "")} style={{ fontSize: 20 }} onClick={() => { stop(); setSid(s.id); }}>
+              {s.emoji} {s.title}
+            </button>
+          ))}
+        </div>
+      ))}
 
       <div className="card">
         <div className="row" style={{ justifyContent: "space-between", marginBottom: 12 }}>
